@@ -11,16 +11,16 @@ interface exosvc
    const unsigned long HASH_256_SIZE = 32;
 
    void GetExoSvcVersion(
-      [in]handle_t hBinding,
-      [out]unsigned long* Version
+      [in] handle_t hBinding,
+      [out] unsigned long *Version
    );
 
    int Shutdown(
-      [in]handle_t hBinding
+      [in] handle_t hBinding
    );
 
    long AddInteger(
-      [in]handle_t hBinding,
+      [in] handle_t hBinding,
       [in] long param1,
       [in] long param2
    );
@@ -33,12 +33,12 @@ interface exosvc
    );
 
    int GetProcessTokenDescription(
-      [in]handle_t hBinding,
-      [out, string] LPWSTR* szTokenDescription
+      [in] handle_t hBinding,
+      [out, string] LPWSTR *szTokenDescription
    );
 
    int ImpersonateAndGetThreadTokenDescription(
-      [in]handle_t hBinding,
-      [out, string] LPWSTR* szTokenDescription
+      [in] handle_t hBinding,
+      [out, string] LPWSTR *szTokenDescription
    );
 }
