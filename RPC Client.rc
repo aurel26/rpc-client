@@ -138,12 +138,12 @@ BEGIN
 BLOCK "040c04b0"
 BEGIN
 VALUE "FileDescription", "Application Client RPC"
-VALUE "FileVersion", "1.2.0.26"
+VALUE "FileVersion", "1.2.0.28"
 VALUE "InternalName", "Client RPC"
-VALUE "LegalCopyright", "2013 - aurel26"
+VALUE "LegalCopyright", "2013-2020 - aurel26"
 VALUE "OriginalFilename", "Client.exe"
 VALUE "ProductName", "Application Client"
-VALUE "ProductVersion", "1.2.0.26"
+VALUE "ProductVersion", "1.2.0.28"
 END
 END
 BLOCK "VarFileInfo"
