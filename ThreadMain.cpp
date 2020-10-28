@@ -45,7 +45,7 @@ tConnectRpc (
    TCHAR szNetAddr[MAX_SIZE_NET_ADDR];
    TCHAR szEndPoint[MAX_SIZE_ENDPOINT];
    TCHAR szOutput[MAX_SIZE_OUTPUT];
-   LPTSTR* szStringBinding;
+   RPC_WSTR szStringBinding;
    RPC_STATUS status;
    DWORD dwReturn;
    LRESULT lResult;
@@ -64,7 +64,7 @@ tConnectRpc (
    GetDlgItemText(hwndDlg, IDC_EDIT_CNX_ADDR, szNetAddr, MAX_SIZE_NET_ADDR);
    GetDlgItemText(hwndDlg, IDC_EDIT_CNX_EP, szEndPoint, MAX_SIZE_ENDPOINT);
 
-   status = RpcStringBindingCompose(NULL, (RPC_WSTR)szProtocol, (RPC_WSTR)szNetAddr, (RPC_WSTR)szEndPoint, NULL, (RPC_WSTR*)&szStringBinding);
+   status = RpcStringBindingCompose(NULL, (RPC_WSTR)szProtocol, (RPC_WSTR)szNetAddr, (RPC_WSTR)szEndPoint, NULL, &szStringBinding);
    if (status != RPC_S_OK)
    {
       _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("RpcStringBindingCompose: Error %d"), status);
@@ -73,7 +73,7 @@ tConnectRpc (
    }
    else
    {
-      status = RpcBindingFromStringBinding((RPC_WSTR)szStringBinding, &g_hBinding);
+      status = RpcBindingFromStringBinding(szStringBinding, &g_hBinding);
 
       if (status != RPC_S_OK)
       {
@@ -88,7 +88,7 @@ tConnectRpc (
          // Affichage du nouvel état
          _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("Handle: %p\r\n"), g_hBinding);
          SendDlgItemMessage(hwndDlg, IDC_STATUSBAR, SB_SETTEXT, 0, (LPARAM)szOutput);
-         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("Chaîne de connexion: %s"), *szStringBinding);
+         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("Chaîne de connexion: %s"), (LPTSTR)szStringBinding);
          SendDlgItemMessage(hwndDlg, IDC_STATUSBAR, SB_SETTEXT, 1, (LPARAM)szOutput);
 
          SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, TEXT(""));
@@ -146,7 +146,7 @@ tConnectRpc (
          }
          SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
       }
-      RpcStringFree((RPC_WSTR*)&szStringBinding);
+      RpcStringFree(&szStringBinding);
       dwReturn = 1;
    }
 
