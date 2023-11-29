@@ -229,12 +229,13 @@ DialogProc (
          SendDlgItemMessage(hwndDlg, IDC_COMBO_AUTH_SRV, CB_SETMINVISIBLE, 10, 0);
 
          // Limitation de la taille des zones de texte
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_CNX_ADDR, EM_LIMITTEXT, MAX_SIZE_NET_ADDR, 0);
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_CNX_EP, EM_LIMITTEXT, MAX_SIZE_ENDPOINT, 0);
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_DOM, EM_LIMITTEXT, MAX_SIZE_NAME, 0);
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_USER, EM_LIMITTEXT, MAX_SIZE_NAME, 0);
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_PASS, EM_LIMITTEXT, MAX_SIZE_NAME, 0);
-         SendDlgItemMessage(hwndDlg, IDC_EDIT_RPC_DATA_TOHASH, EM_LIMITTEXT, MAX_BUF_SIZE, 0);
+         // From MSDN: "This number does not include the terminating null character."
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_CNX_ADDR,        EM_LIMITTEXT, MAX_SIZE_NET_ADDR - 1, 0);
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_CNX_EP,          EM_LIMITTEXT, MAX_SIZE_ENDPOINT - 1, 0);
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_DOM,        EM_LIMITTEXT, MAX_SIZE_NAME - 1, 0);
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_USER,       EM_LIMITTEXT, MAX_SIZE_NAME - 1, 0);
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_AUTH_PASS,       EM_LIMITTEXT, MAX_SIZE_NAME - 1, 0);
+         SendDlgItemMessage(hwndDlg, IDC_EDIT_RPC_DATA_TOHASH, EM_LIMITTEXT, MAX_BUF_SIZE - 1, 0);
 
          return TRUE;
       }
