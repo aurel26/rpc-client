@@ -339,8 +339,13 @@ MIDL_user_allocate (
 #pragma warning(suppress: 6320)
    __except (EXCEPTION_EXECUTE_HANDLER)
    {
-      MessageBox(0, 0, 0, 0);
-      return 0;
+      MessageBox(
+         NULL,
+         TEXT("Impossible d'alouter dans le tas."),
+         TEXT("Erreur mémoire"),
+         MB_OK | MB_ICONERROR
+      );
+      return NULL;
    }
 }
 
@@ -357,6 +362,11 @@ MIDL_user_free (
 #pragma warning(suppress: 6320)
    __except (EXCEPTION_EXECUTE_HANDLER)
    {
-      MessageBox(0, 0, 0, 0);
+      MessageBox(
+         NULL,
+         TEXT("Impossible de libérer un bloc dans le tas."),
+         TEXT("Erreur mémoire"),
+         MB_OK | MB_ICONERROR
+      );
    }
 }
