@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Fichier Include généré de Microsoft Visual C++.
-// Utilisé par ressources.rc
+// fichier Include Microsoft Visual C++.
+// Utilisé par RPC Client.rc
 //
 #define IDD_DIALOG_MAIN                 101
 #define IDI_ICON_MAIN                   103
