@@ -230,8 +230,6 @@ tMgmtInqIfIds (
    }
    else
    {
-      ZeroMemory(szOutput, MAX_SIZE_OUTPUT * sizeof(TCHAR));
-
       for (DWORD i = 0; i < rpcIdVect->Count; i++)
       {
          if (UuidToString(&rpcIdVect->IfId[i]->Uuid, (RPC_WSTR*)&szString) == RPC_S_OK)
