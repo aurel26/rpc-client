@@ -18,18 +18,18 @@ DisplayMessageWithError (
 )
 {
    DWORD dwReturn;
-   TCHAR szMessage[MAX_SIZE_MESSAGE];
+   TCHAR szErrorMessage[MAX_SIZE_MESSAGE];
    TCHAR szOutput[MAX_SIZE_OUTPUT];
    va_list argptr;
    va_start(argptr, szFormatMessage);
 
    _vstprintf_s(szOutput, MAX_SIZE_OUTPUT, szFormatMessage, argptr);
 
-   dwReturn = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, 0, dwError, 0, szMessage, MAX_SIZE_MESSAGE, 0);
+   dwReturn = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, 0, dwError, 0, szErrorMessage, MAX_SIZE_MESSAGE, 0);
    if (dwReturn)
    {
       _tcscat_s(szOutput, MAX_SIZE_OUTPUT, TEXT("\r\n"));
-      _tcscat_s(szOutput, MAX_SIZE_OUTPUT, szMessage);
+      _tcscat_s(szOutput, MAX_SIZE_OUTPUT, szErrorMessage);
    }
    SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
 }
@@ -217,7 +217,7 @@ tMgmtInqIfIds (
    RPC_STATUS status;
    TCHAR szOutput[MAX_SIZE_OUTPUT] = { 0 };
    RPC_IF_ID_VECTOR* rpcIdVect;
-   LPTSTR pszString;
+   LPTSTR szString;
 
    hwndDlg = (HWND)lpParameter;
 
@@ -233,13 +233,13 @@ tMgmtInqIfIds (
 
       for (DWORD i = 0; i < rpcIdVect->Count; i++)
       {
-         if (UuidToString(&rpcIdVect->IfId[i]->Uuid, (RPC_WSTR*)&pszString) == RPC_S_OK)
+         if (UuidToString(&rpcIdVect->IfId[i]->Uuid, (RPC_WSTR*)&szString) == RPC_S_OK)
          {
             TCHAR szTemp[MAX_SIZE_OUTPUT] = { 0 };
 
-            _stprintf_s(szTemp, MAX_SIZE_OUTPUT, TEXT("%ws (%u.%u)\r\n"), pszString, rpcIdVect->IfId[i]->VersMajor, rpcIdVect->IfId[i]->VersMinor);
+            _stprintf_s(szTemp, MAX_SIZE_OUTPUT, TEXT("%ws (%u.%u)\r\n"), szString, rpcIdVect->IfId[i]->VersMajor, rpcIdVect->IfId[i]->VersMinor);
             _tcscat_s(szOutput, MAX_SIZE_OUTPUT, szTemp);
-            RpcStringFree((RPC_WSTR*)&pszString);
+            RpcStringFree((RPC_WSTR*)&szString);
          }
          else
          {

@@ -8,7 +8,7 @@
 //
 // WinMain.cpp
 //
-void EnableRpcControls(_In_ HWND hDlg, _In_ DWORD dwCase);
+void EnableRpcControls(_In_ HWND hDlg, _In_ DWORD dwVersion);
 void EnableAuthControls(_In_ HWND hDlg, _In_ DWORD dwCase);
 
 //

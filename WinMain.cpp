@@ -23,10 +23,10 @@ HINSTANCE g_hApplication;
 void
 EnableRpcControls (
    _In_ HWND hDlg,
-   _In_ DWORD dwCase
+   _In_ DWORD dwVersion
 )
 {
-   switch (dwCase)
+   switch (dwVersion)
    {
       default:
       case 0:
