@@ -31,6 +31,7 @@ DisplayMessageWithError (
       _tcscat_s(szOutput, MAX_SIZE_OUTPUT, TEXT("\r\n"));
       _tcscat_s(szOutput, MAX_SIZE_OUTPUT, szErrorMessage);
    }
+
    SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
 }
 
@@ -412,7 +413,10 @@ tRpcImpGetToken (
          midl_user_free(szResult);
       }
       else
+      {
          _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription: (%d)"), lResult);
+      }
+
       SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
    }
 #pragma warning(suppress: 6320)

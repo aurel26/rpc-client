@@ -145,7 +145,8 @@ WinMain (
    g_hApplication = hInstance;
    g_hHeapRpc = HeapCreate(HEAP_GENERATE_EXCEPTIONS, 1024 * 1024, 0);
    DialogBox(hInstance, (LPCTSTR)IDD_DIALOG_MAIN, 0, (DLGPROC)DialogProc);
-   return(0);
+
+   return(EXIT_SUCCESS);
 }
 
 INT_PTR
