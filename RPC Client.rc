@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "winres.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -121,8 +121,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 1, 2, 0, 26
-PRODUCTVERSION 1, 2, 0, 26
+ FILEVERSION 1,2,0,32
+ PRODUCTVERSION 1,2,0,32
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -133,17 +133,17 @@ PRODUCTVERSION 1, 2, 0, 26
  FILETYPE 0x1L
  FILESUBTYPE 0x0L
 BEGIN
-VALUE "FileVersion", "1.2.0.28"
-VALUE "ProductVersion", "1.2.0.28"
     BLOCK "StringFileInfo"
     BEGIN
         BLOCK "040c04b0"
         BEGIN
             VALUE "FileDescription", "Application Client RPC"
+            VALUE "FileVersion", "1.2.0.32"
             VALUE "InternalName", "Client RPC"
             VALUE "LegalCopyright", "2013-2020 - aurel26"
             VALUE "OriginalFilename", "Client.exe"
             VALUE "ProductName", "Application Client"
+            VALUE "ProductVersion", "1.2.0.32"
         END
     END
     BLOCK "VarFileInfo"
