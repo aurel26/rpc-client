@@ -9,6 +9,8 @@
 
 RPC_BINDING_HANDLE g_hBinding = NULL;
 
+extern HANDLE g_hHeapRpc;
+
 VOID
 DisplayMessageWithError (
    HWND hwndDlg,
@@ -367,15 +369,41 @@ tRpcGetProcessToken (
    {
       szResult = NULL;
       lResult = GetProcessTokenDescription(g_hBinding, &szResult);
-      if (lResult == STATUS_SUCCESS)
+
+      if ((lResult == STATUS_SUCCESS) && (szResult != NULL))
       {
-         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("GetProcessTokenDescription: (%d)\r\n%s"), lResult, szResult);
+         size_t sizeText;
+
+         sizeText = _tcsnlen(szResult, MAX_SIZE_TEXTBOX);
+         if (sizeText > 0)
+         {
+            LPTSTR szFullResult;
+
+            _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("GetProcessTokenDescription:\r\n"));
+            sizeText += _tcsnlen(szOutput, MAX_SIZE_TEXTBOX);
+            sizeText += 1;          // +1 for the  terminating null character
+
+            szFullResult = (LPTSTR)HeapAlloc(g_hHeapRpc, HEAP_ZERO_MEMORY, sizeText * sizeof(TCHAR));
+            if (szFullResult != NULL)
+            {
+               _stprintf_s(szFullResult, sizeText, TEXT("%s%s"), szOutput, szResult);
+               SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szFullResult);
+               HeapFree(g_hHeapRpc, 0, szFullResult);
+            }
+         }
+         else
+         {
+            _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("GetProcessTokenDescription:\r\nTEXT ERROR"));
+            SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
+         }
+
          midl_user_free(szResult);
       }
       else
-         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("GetProcessTokenDescription: (%d)"), lResult);
-      SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
-
+      {
+         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("GetProcessTokenDescription: Error %d"), lResult);
+         SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
+      }
    }
 #pragma warning(suppress: 6320)
    RpcExcept(EXCEPTION_EXECUTE_HANDLER)
@@ -405,17 +433,41 @@ tRpcImpGetToken (
    RpcTryExcept
    {
       lResult = ImpersonateAndGetThreadTokenDescription(g_hBinding, &szResult);
-      if (lResult == STATUS_SUCCESS)
+
+      if ((lResult == STATUS_SUCCESS) && (szResult != NULL))
       {
-         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription: (%d)\r\n%s"), lResult, szResult);
+         size_t sizeText;
+
+         sizeText = _tcsnlen(szResult, MAX_SIZE_TEXTBOX);
+         if (sizeText > 0)
+         {
+            LPTSTR szFullResult;
+
+            _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription:\r\n"));
+            sizeText += _tcsnlen(szOutput, MAX_SIZE_TEXTBOX);
+            sizeText += 1;          // +1 for the  terminating null character
+
+            szFullResult = (LPTSTR)HeapAlloc(g_hHeapRpc, HEAP_ZERO_MEMORY, sizeText * sizeof(TCHAR));
+            if (szFullResult != NULL)
+            {
+               _stprintf_s(szFullResult, sizeText, TEXT("%s%s"), szOutput, szResult);
+               SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szFullResult);
+               HeapFree(g_hHeapRpc, 0, szFullResult);
+            }
+         }
+         else
+         {
+            _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription:\r\nTEXT ERROR"));
+            SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
+         }
+
          midl_user_free(szResult);
       }
       else
       {
-         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription: (%d)"), lResult);
+         _stprintf_s(szOutput, MAX_SIZE_OUTPUT, TEXT("ImpersonateAndGetThreadTokenDescription: Error %d"), lResult);
+         SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
       }
-
-      SetDlgItemText(hwndDlg, IDC_EDIT_OUTPUT, szOutput);
    }
 #pragma warning(suppress: 6320)
    RpcExcept(EXCEPTION_EXECUTE_HANDLER)

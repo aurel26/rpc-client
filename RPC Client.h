@@ -2,6 +2,7 @@
 #define MAX_SIZE_NET_ADDR     256
 #define MAX_SIZE_ENDPOINT     256
 #define MAX_SIZE_OUTPUT       2048
+#define MAX_SIZE_TEXTBOX      1024*1024
 #define MAX_SIZE_MESSAGE      255
 #define MAX_SIZE_NAME         256
 
